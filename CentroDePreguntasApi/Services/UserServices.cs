@@ -60,6 +60,7 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
       using var hmac = new HMACSHA512();
 
       var user = _mapper.Map<User>(userInsertDto);
+      user.UserName = userInsertDto.UserName.ToLower();
       user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userInsertDto.Password));
       user.PasswordSalt = hmac.Key;
 
