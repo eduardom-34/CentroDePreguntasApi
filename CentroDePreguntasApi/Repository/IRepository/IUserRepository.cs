@@ -8,6 +8,5 @@ public interface IUserRepository<User>
   Task<User> GetById(int id);
   Task<int> Add(User userId);
   void Delete(int id);
-  Task Save();
-  IEnumerable<User> Search(Func<User, bool> filter) => throw new NotImplementedException();
+  Task<string> GetUsernameIfExists(string userName);
 }

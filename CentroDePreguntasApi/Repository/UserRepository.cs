@@ -39,13 +39,13 @@ public class UserRepository: IUserRepository<User>
             .ToList();
     }
 
-    public Task Save()
+    public async Task<string> GetUsernameIfExists(string userName)
     {
-        throw new NotImplementedException();
-    }
+        var result = await _context.Users
+            .FromSqlInterpolated($"exec CheckUsernameAvailability @UserName = {userName}")
+            .Select(u => u.UserName)
+            .FirstOrDefaultAsync();
 
-    public void Update(User entity)
-    {
-        throw new NotImplementedException();
+        return result;
     }
 }
