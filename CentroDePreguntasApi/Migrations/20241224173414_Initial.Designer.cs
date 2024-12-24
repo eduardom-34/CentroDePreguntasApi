@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentroDePreguntasApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241224162627_Initial")]
+    [Migration("20241224173414_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -112,15 +112,15 @@ namespace CentroDePreguntasApi.Migrations
             modelBuilder.Entity("CentroDePreguntasApi.Models.Answer", b =>
                 {
                     b.HasOne("CentroDePreguntasApi.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CentroDePreguntasApi.Models.User", "User")
                         .WithMany("Answers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Question");
@@ -133,10 +133,15 @@ namespace CentroDePreguntasApi.Migrations
                     b.HasOne("CentroDePreguntasApi.Models.User", "User")
                         .WithMany("Questions")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CentroDePreguntasApi.Models.Question", b =>
+                {
+                    b.Navigation("Answers");
                 });
 
             modelBuilder.Entity("CentroDePreguntasApi.Models.User", b =>

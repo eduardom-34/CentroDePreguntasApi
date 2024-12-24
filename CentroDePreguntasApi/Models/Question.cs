@@ -16,4 +16,6 @@ public class Question
   [ForeignKey("UserId")]
   public User User { get; set; }
 
+  public ICollection<Answer> Answers { get; set;}
+
 }
