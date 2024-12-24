@@ -11,7 +11,7 @@ public class MappingProfile : Profile
   {
     // Mapping for users
     // Origin of info, returning info
-    CreateMap<UserInsertDto, UserDto>();
+    CreateMap<UserInsertDto, User>();
     CreateMap<User, UserDto>();
     
   }

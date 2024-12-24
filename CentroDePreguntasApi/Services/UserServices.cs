@@ -42,6 +42,17 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
 
       return null;
     }
+    public async Task<UserDto> GetByUsername(string username)
+    {
+      var user = await _userRepository.GetByUsername(username);
+
+      if( user != null){
+        var userDto = _mapper.Map<UserDto>(user);
+        return userDto;
+      }
+
+      return null;
+    }
 
     public async Task<UserTokenDto> Add(UserInsertDto userInsertDto)
     {

@@ -23,9 +23,19 @@ public class UserRepository: IUserRepository<User>
 
     public async Task<User> GetById(int id)
     {
-        return await _context.Users
-            .FromSqlRaw("EXEC GetUserById @UserId = {0}", id)
-            .FirstOrDefaultAsync();
+        var user =  await _context.Users
+            .FromSqlInterpolated($"exec GetUserById @UserId = {id}")
+            .ToListAsync();
+            
+        return user.FirstOrDefault();
+    }
+    public async Task<User> GetByUsername(string username)
+    {
+        var user = await _context.Users
+        .FromSqlInterpolated($"exec GetUserByUsername @UserName = '{username}'")
+        .ToListAsync();
+
+        return user.FirstOrDefault();
     }
     public async Task<int> Add(User user)
     {
