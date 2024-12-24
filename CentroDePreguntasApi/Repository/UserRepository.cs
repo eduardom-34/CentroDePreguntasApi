@@ -29,10 +29,10 @@ public class UserRepository: IUserRepository<User>
             
         return user.FirstOrDefault();
     }
-    public async Task<User> GetByUsername(string username)
+    public async Task<User> GetByUsername(string userName)
     {
         var user = await _context.Users
-        .FromSqlInterpolated($"exec GetUserByUsername @UserName = '{username}'")
+        .FromSqlInterpolated($"exec GetUserByUsername @UserName = {userName}")
         .ToListAsync();
 
         return user.FirstOrDefault();
