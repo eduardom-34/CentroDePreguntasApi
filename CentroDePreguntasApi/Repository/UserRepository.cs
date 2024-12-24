@@ -14,23 +14,29 @@ public class UserRepository: IUserRepository<User>
     _context = context;
   }
 
-
-    public Task<IEnumerable<User>> Get()
+    public async Task<IEnumerable<User>> Get()
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .FromSqlRaw("EXEC GetAllUsers")
+            .ToListAsync();
     }
 
-    public Task<User> GetById(int id)
+    public async Task<User> GetById(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .FromSqlRaw("EXEC GetUserById @UserId = {0}", id)
+            .FirstOrDefaultAsync();
     }
-    public Task Add(User entity)
+    public async Task<int> Add(User user)
     {
-        throw new NotImplementedException();
+        return await _context.Database
+        .ExecuteSqlInterpolatedAsync($"exec AddUser @UserName={user.UserName}, @FirstName={user.FirstName}, @LastName={user.LastName}, @PasswordHash={user.PasswordHash}, @PasswordSalt={user.PasswordSalt}");
     }
-    public void Delete(User entity)
+    public void Delete(int userId)
     {
-        throw new NotImplementedException();
+        _context.Users
+            .FromSqlRaw("exec DeleteUser @UserId = {0}", userId)
+            .ToList();
     }
 
     public Task Save()
