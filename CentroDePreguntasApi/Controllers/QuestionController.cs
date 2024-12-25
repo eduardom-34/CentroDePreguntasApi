@@ -29,7 +29,7 @@ namespace CentroDePreguntasApi.Controllers
 
         // [Authorize]
         [HttpPost]
-        public async Task<ActionResult<int>> Add(QuestionInsertDto questionInsertDto)
+        public async Task<ActionResult<int>> Add([FromBody] QuestionInsertDto questionInsertDto)
         {
             var affectedRows = await _questionService.Add(questionInsertDto);
 
