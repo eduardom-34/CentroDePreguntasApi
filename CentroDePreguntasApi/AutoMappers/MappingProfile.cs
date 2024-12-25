@@ -13,6 +13,10 @@ public class MappingProfile : Profile
     // Origin of info, returning info
     CreateMap<UserInsertDto, User>();
     CreateMap<User, UserDto>();
+
+    // Mapping for questions
+    CreateMap<QuestionInsertDto, Question>();
+    CreateMap<Question, QuestionDto>();
     
   }
 }

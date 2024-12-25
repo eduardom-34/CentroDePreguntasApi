@@ -37,13 +37,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Add Repository
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
-
+builder.Services.AddScoped<IQuestionRepository<Question>, QuestionRepository>();
 
 
 
 // Add services
 builder.Services.AddScoped<IUserServices<UserDto, UserInsertDto, UserTokenDto>, UserServices>();
-
+builder.Services.AddScoped<IQuestionService<QuestionDto, QuestionInsertDto> , QuestionService>();
 
 // Mapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
