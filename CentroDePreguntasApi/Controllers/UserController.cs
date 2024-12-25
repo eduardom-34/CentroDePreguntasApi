@@ -64,5 +64,18 @@ namespace CentroDePreguntasApi.Controllers
 
             return Ok(userTokenDto);
         }
+        
+        [HttpPost("validate-token")]
+        public ActionResult<UserTokenDto> ValidateToken(TokenRequestDto tokenRequestDto)
+        {
+            var userTokenDto = _userService.ValidateToken(tokenRequestDto.Token);
+
+            if( userTokenDto == null)
+            {
+                return BadRequest(_userService.Errors);
+            }
+
+            return Ok(userTokenDto);
+        }
     }
 }

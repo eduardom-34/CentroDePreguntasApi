@@ -11,5 +11,6 @@ public interface IUserServices<UserDto, UserInsertDto, UserTokenDto>
   Task<UserDto> GetById(int id);
   Task<UserTokenDto> Add(UserInsertDto userInsertDto);
   Task<UserTokenDto> Login(string userName, string password);
+  UserTokenDto ValidateToken(string token);
   
 }
