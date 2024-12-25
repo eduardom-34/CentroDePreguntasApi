@@ -23,6 +23,7 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
   {
     _userRepository = userRepository;
     _mapper = mapper;
+    Errors = new List<string>();
   }
 
     public async Task<IEnumerable<UserDto>> Get()
@@ -76,5 +77,39 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
       return userTokenDto;
 
 
+    }
+
+    public async Task<UserTokenDto> Login(string userName, string password)
+    {
+      var user = await _userRepository.GetByUsername(userName);
+
+      if(user != null)
+      {
+
+      
+
+        using var hmac = new HMACSHA512(user.PasswordSalt);
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash![i])
+                {
+                    Errors.Add("The password is incorret, please try again");
+                    return null;
+                }
+            }
+        var userDto = _mapper.Map<UserDto>(user);
+
+        var userTokenDto = new UserTokenDto
+        {
+          UserName = user.UserName,
+          Token = "asa"
+        };
+
+        return userTokenDto;
+      }
+      
+      Errors.Add("This username does not exist, please try again or create an account");
+        return null;
     }
 }

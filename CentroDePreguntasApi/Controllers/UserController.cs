@@ -48,5 +48,17 @@ namespace CentroDePreguntasApi.Controllers
 
             return CreatedAtAction(nameof(GetByUsername), new { username = userTokenDto.UserName }, userTokenDto);
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserLoginDto>> Login(UserLoginDto userLoginDto)
+        {
+            var userTokenDto = await _userService.Login(userLoginDto.UserName, userLoginDto.Password);
+
+            if( userTokenDto == null){
+                return Unauthorized(_userService.Errors);
+            }
+
+            return Ok(userTokenDto);
+        }
     }
 }
