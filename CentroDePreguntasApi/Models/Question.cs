@@ -10,7 +10,7 @@ public class Question
   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
   public int QuestionId { get; set; }
   public string Content { get; set; }
-  public DateTime CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; } = DateTime.Now;
   public bool IsClosed { get; set; } = false;
   public int UserId { get; set; }
   [ForeignKey("UserId")]
