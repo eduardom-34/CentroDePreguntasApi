@@ -13,15 +13,18 @@ namespace CentroDePreguntasApi.Services;
 public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
 {
   private IUserRepository<User> _userRepository;
+  private ITokenService<UserDto> _tokenService;
   private IMapper _mapper;
 
   public List<string> Errors { get; }
 
   public UserServices( 
     IUserRepository<User> userRepository,
-    IMapper mapper)
+    IMapper mapper,
+    ITokenService<UserDto> tokenService)
   {
     _userRepository = userRepository;
+    _tokenService = tokenService;
     _mapper = mapper;
     Errors = new List<string>();
   }
@@ -71,7 +74,7 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
       var userTokenDto = new UserTokenDto
       {
         UserName = user.UserName,
-        Token = "asas"
+        Token = _tokenService.CreateToken(userDto)
       };
 
       return userTokenDto;
@@ -103,7 +106,7 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
         var userTokenDto = new UserTokenDto
         {
           UserName = user.UserName,
-          Token = "asa"
+          Token = _tokenService.CreateToken(userDto)
         };
 
         return userTokenDto;

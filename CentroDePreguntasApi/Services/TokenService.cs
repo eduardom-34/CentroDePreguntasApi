@@ -1,4 +1,6 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using CentroDePreguntasApi.DTOs;
 using CentroDePreguntasApi.Services.IServices;
@@ -24,7 +26,22 @@ public class TokenService : ITokenService<UserDto>
   }
     public string CreateToken(UserDto userDto)
     {
-        throw new NotImplementedException();
+      var claims = new List<Claim>
+      {
+        new Claim(JwtRegisteredClaimNames.NameId, userDto.UserName)
+      };
+
+      var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+      var tokenDescriptor = new SecurityTokenDescriptor
+      {
+        Subject = new ClaimsIdentity(claims),
+        Expires = DateTime.UtcNow.AddMinutes(30),
+        SigningCredentials = creds
+      };
+
+      var tokenHandler = new JwtSecurityTokenHandler();
+      var token = tokenHandler.CreateToken(tokenDescriptor);
+      return tokenHandler.WriteToken(token);
     }
 
     public bool ValidateToken(string token)

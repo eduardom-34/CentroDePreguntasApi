@@ -16,6 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection"));
 });
 
+// JWT
+builder.Services.AddScoped<ITokenService<UserDto>, TokenService>();
+
 // Add Repository
 builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 
