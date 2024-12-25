@@ -29,6 +29,11 @@ public class AnswerService: IAnswerService<AnswerDto, AnswerInsertDto>
         var answers = await _answerRepository.Get();
 
         return answers.Select(a => _mapper.Map<AnswerDto>(a));
+
+        // var answerDto = answers.Select(a => new AnswerDto
+        // {
+        //   AnswerId = a.AnswerId
+        // });
     }
 
     public async Task<ActionResult<int>> Add(AnswerInsertDto answerInsertDto)
