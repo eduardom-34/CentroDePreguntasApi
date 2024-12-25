@@ -17,11 +17,9 @@ public class AnswerRepository : IAnswerRepository<Answer>
   }
     public async Task<IEnumerable<Answer>> Get()
     {
-      var answer = await _context.Answers
+      return await _context.Answers
         .FromSqlRaw("exec GetAllAnswers")
         .ToListAsync();
-
-        return answer;
     }
 
     public Task<IEnumerable<Answer>> GetByQuestionId(int questionId)

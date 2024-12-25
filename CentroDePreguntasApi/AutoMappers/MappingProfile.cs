@@ -22,5 +22,6 @@ public class MappingProfile : Profile
 
     // Mappping for Answers
     CreateMap<Answer, AnswerDto>();
+    // .ForMember(dto => dto.UserName, answer => answer.MapFrom(a => a.User.UserName));
   }
 }

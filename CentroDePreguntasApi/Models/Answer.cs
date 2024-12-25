@@ -19,4 +19,5 @@ public class Answer
   public int QuestionId { get; set; }
   [ForeignKey("QuestionId")]
   public Question Question { get; set; }
+  public string UserName { get; set; }
 }
