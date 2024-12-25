@@ -1,5 +1,6 @@
 using CentroDePreguntasApi.DTOs;
 using CentroDePreguntasApi.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,12 @@ namespace CentroDePreguntasApi.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IEnumerable<UserDto>> Get() =>
         await _userService.Get();
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetById(int id)
         {
@@ -33,6 +36,7 @@ namespace CentroDePreguntasApi.Controllers
             return userDto;
         }
 
+        [Authorize]
         [HttpGet("search/{username}")]
         public async Task<ActionResult<UserDto>> GetByUsername(string username)
         {
