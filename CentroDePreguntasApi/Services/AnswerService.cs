@@ -29,11 +29,12 @@ public class AnswerService: IAnswerService<AnswerDto, AnswerInsertDto>
         var answers = await _answerRepository.Get();
 
         return answers.Select(a => _mapper.Map<AnswerDto>(a));
+    }
+    public async Task<IEnumerable<AnswerDto>> GetByQuestionId(int id)
+    {
+      var answers = await _answerRepository.GetByQuestionId(id);
 
-        // var answerDto = answers.Select(a => new AnswerDto
-        // {
-        //   AnswerId = a.AnswerId
-        // });
+        return answers.Select(a => _mapper.Map<AnswerDto>(a));
     }
 
     public async Task<ActionResult<int>> Add(AnswerInsertDto answerInsertDto)

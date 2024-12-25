@@ -24,6 +24,12 @@ namespace CentroDePreguntasApi.Controllers
             return await _answerService.Get();
         }
 
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<AnswerDto>> GetByQuestionId(int id)
+        {
+            return await _answerService.GetByQuestionId(id);
+        }
+
         
         [HttpPost]
         public async Task<ActionResult<int>> Add(AnswerInsertDto answerInsertDto)

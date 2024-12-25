@@ -22,9 +22,11 @@ public class AnswerRepository : IAnswerRepository<Answer>
         .ToListAsync();
     }
 
-    public Task<IEnumerable<Answer>> GetByQuestionId(int questionId)
+    public async Task<IEnumerable<Answer>> GetByQuestionId(int questionId)
     {
-        throw new NotImplementedException();
+      return await _context.Answers
+        .FromSql($"exec GetAnswersByQuestionId @QuestionId={questionId}")
+        .ToListAsync();
     }
     public async Task<int> Add(string content, int userId, int questionId)
     {
