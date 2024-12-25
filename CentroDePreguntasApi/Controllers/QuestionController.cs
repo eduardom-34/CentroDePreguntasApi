@@ -27,6 +27,7 @@ namespace CentroDePreguntasApi.Controllers
             return await _questionService.Get();
         }
 
+        // [Authorize]
         [HttpPost]
         public async Task<ActionResult<int>> Add(QuestionInsertDto questionInsertDto)
         {
@@ -35,7 +36,6 @@ namespace CentroDePreguntasApi.Controllers
             if( affectedRows == null) {
                 return BadRequest();
             }
-
             return affectedRows;
         }
     }
