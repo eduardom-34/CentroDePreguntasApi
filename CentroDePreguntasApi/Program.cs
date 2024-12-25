@@ -8,6 +8,7 @@ using CentroDePreguntasApi.Services;
 using CentroDePreguntasApi.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -86,9 +87,10 @@ builder.Services.AddSwaggerGen(options =>
 // CORS
   var allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins")!.Split(",");
 
-builder.Services.AddCors( opciones => {
-  opciones.AddDefaultPolicy( policy => {
-    policy.WithOrigins("allowedOrigins").AllowAnyHeader().AllowAnyMethod();
+builder.Services.AddCors( options => {
+  options.AddDefaultPolicy( policy => 
+  {
+    policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
   });
 });
 
