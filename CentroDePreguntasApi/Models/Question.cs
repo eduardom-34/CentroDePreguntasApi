@@ -16,6 +16,11 @@ public class Question
   [ForeignKey("UserId")]
   public User User { get; set; }
 
+  // Propiedades relacionadas con User
+  public string FirstName { get; set; }
+  public string  LastName { get; set; }
+  public string UserName { get; set; }
+
   public ICollection<Answer> Answers { get; set;}
 
 }

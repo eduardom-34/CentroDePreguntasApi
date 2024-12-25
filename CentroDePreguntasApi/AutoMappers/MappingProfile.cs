@@ -19,6 +19,8 @@ public class MappingProfile : Profile
     CreateMap<QuestionInsertDto, Question>();
     CreateMap<Question, QuestionDto>()
       .ForMember(dest => dest.QuestionUserId, opt => opt.MapFrom(src => src.UserId));
-    
+      // .ForMember(dest => dest.CreatorFirstName, opt => opt.MapFrom(src => src.CreatorFirstName))
+      // .ForMember(dest => dest.CreatorLastName, opt => opt.MapFrom(src => src.CreatorLastName))
+      // .ForMember(dest => dest.CreatorUserName, opt => opt.MapFrom(src => src.CreatorUserName));
   }
 }

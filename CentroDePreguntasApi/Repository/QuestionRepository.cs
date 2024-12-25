@@ -20,8 +20,8 @@ public class QuestionRepository : IQuestionRepository<Question>
     public async Task<IEnumerable<Question>> Get()
     {
       return await _context.Questions
-      .FromSqlRaw("exec GetAllQuestions")
-      .ToListAsync();
+        .FromSqlRaw("EXEC GetAllQuestions")
+        .ToListAsync();
     }
 
     public async Task<int> Add(string content, int userId)

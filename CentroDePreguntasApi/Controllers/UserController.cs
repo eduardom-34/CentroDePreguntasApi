@@ -18,7 +18,7 @@ namespace CentroDePreguntasApi.Controllers
             _userService = userService;
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet]
         public async Task<IEnumerable<UserDto>> Get() =>
         await _userService.Get();
