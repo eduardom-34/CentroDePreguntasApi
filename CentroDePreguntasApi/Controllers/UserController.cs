@@ -23,7 +23,7 @@ namespace CentroDePreguntasApi.Controllers
         public async Task<IEnumerable<UserDto>> Get() =>
         await _userService.Get();
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetById(int id)
         {
@@ -36,7 +36,7 @@ namespace CentroDePreguntasApi.Controllers
             return userDto;
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("search/{username}")]
         public async Task<ActionResult<UserDto>> GetByUsername(string username)
         {
