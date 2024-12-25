@@ -1,4 +1,5 @@
 using System;
+using CentroDePreguntasApi.DTOs;
 using CentroDePreguntasApi.Models;
 using CentroDePreguntasApi.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,9 @@ public class QuestionRepository : IQuestionRepository<Question>
       .ToListAsync();
     }
 
-    public Task<ActionResult<Question>> Add()
+    public async Task<int> Add(string content, int userId)
     {
-        throw new NotImplementedException();
+      return await _context.Database
+      .ExecuteSqlInterpolatedAsync($"exec CreateQuestion @Content={content}, @UserId={userId}");
     }
 }
