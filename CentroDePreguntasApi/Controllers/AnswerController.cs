@@ -32,7 +32,7 @@ namespace CentroDePreguntasApi.Controllers
 
         
         [HttpPost]
-        public async Task<ActionResult<int>> Add(AnswerInsertDto answerInsertDto)
+        public async Task<ActionResult<int>> Add([FromBody]AnswerInsertDto answerInsertDto)
         {
             var rawsAffected = await _answerService.Add(answerInsertDto);
 

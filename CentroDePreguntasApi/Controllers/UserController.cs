@@ -46,7 +46,7 @@ namespace CentroDePreguntasApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDto>> Add(UserInsertDto userInsertDto)
+        public async Task<ActionResult<UserDto>> Add([FromBody]UserInsertDto userInsertDto)
         {
             var userTokenDto = await _userService.Add(userInsertDto);
 
@@ -66,7 +66,7 @@ namespace CentroDePreguntasApi.Controllers
         }
         
         [HttpPost("validate-token")]
-        public ActionResult<UserTokenDto> ValidateToken(TokenRequestDto tokenRequestDto)
+        public ActionResult<UserTokenDto> ValidateToken([FromBody]TokenRequestDto tokenRequestDto)
         {
             var userTokenDto = _userService.ValidateToken(tokenRequestDto.Token);
 
