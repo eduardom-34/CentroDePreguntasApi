@@ -29,4 +29,10 @@ public class QuestionRepository : IQuestionRepository<Question>
       return await _context.Database
       .ExecuteSqlInterpolatedAsync($"exec CreateQuestion @Content={content}, @UserId={userId}");
     }
+
+    public async Task<int> CloseQuestion(int questionId)
+    {
+      return await _context.Database
+      .ExecuteSqlInterpolatedAsync($"exec UpdateQuestionIsClosed @QuestionId={questionId}");
+    }
 }

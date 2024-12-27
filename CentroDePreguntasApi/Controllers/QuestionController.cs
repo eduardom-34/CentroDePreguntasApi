@@ -38,5 +38,17 @@ namespace CentroDePreguntasApi.Controllers
             }
             return affectedRows;
         }
+
+        [HttpPatch("{questionId}")]
+        public async Task<ActionResult<int>> CloseQuestion(int questionId)
+        {
+            var affectedRows = await _questionService.CloseQuestion(questionId);
+
+            if( affectedRows == 0 ) {
+                return BadRequest(affectedRows);
+            }
+            return affectedRows;
+            
+        }
     }
 }

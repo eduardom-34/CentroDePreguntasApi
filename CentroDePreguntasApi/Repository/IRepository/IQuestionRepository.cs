@@ -9,4 +9,5 @@ public interface IQuestionRepository<Question>
 {
   Task<IEnumerable<Question>> Get();
   Task<int> Add(string content, int userId);
+  Task<int> CloseQuestion(int questionId);
 }

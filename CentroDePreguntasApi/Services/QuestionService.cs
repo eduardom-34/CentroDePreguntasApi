@@ -44,4 +44,10 @@ public class QuestionService : IQuestionService<QuestionDto, QuestionInsertDto>
       // return question;
     }
 
+    public Task<int> CloseQuestion(int questionId)
+    {
+      var affectedRows = _questionRepository.CloseQuestion(questionId);
+
+      return affectedRows;
+    }
 }

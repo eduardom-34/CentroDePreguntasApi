@@ -8,5 +8,6 @@ public interface IQuestionService<QuestionDto, QuestionInsertDto>
   public List<string> Errors{ get; }
   public Task<IEnumerable<QuestionDto>> Get();
   public Task<ActionResult<int>> Add(QuestionInsertDto questionInsertDto);
+  public Task<int> CloseQuestion(int questionId);
 
 }
