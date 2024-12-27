@@ -58,4 +58,13 @@ public class UserRepository: IUserRepository<User>
 
         return result;
     }
+
+    public async Task<bool> CheckUserExists(string userName)
+    {
+        var result = await _context.Users
+            .FromSqlRaw("EXEC CheckUserExists @UserName = {0}", userName)
+            .ToListAsync();
+
+        return result.Any();
+    }
 }

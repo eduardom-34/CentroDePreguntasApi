@@ -60,6 +60,10 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
 
     public async Task<UserTokenDto> Add(UserInsertDto userInsertDto)
     {
+      if( await _userRepository.CheckUserExists(userInsertDto.UserName) == true ){
+        Errors.Add("Este usuario ya existe, por favor elija otro");
+        return null;
+      }
 
       using var hmac = new HMACSHA512();
 
@@ -137,5 +141,10 @@ public class UserServices : IUserServices<UserDto, UserInsertDto, UserTokenDto>
         };
 
         return UserTokenDto;
+    }
+
+    public async Task<bool> IsUserExistsAsync(string userName)
+    {
+      return await _userRepository.CheckUserExists(userName);
     }
 }

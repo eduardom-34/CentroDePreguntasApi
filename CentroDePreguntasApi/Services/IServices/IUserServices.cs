@@ -12,5 +12,6 @@ public interface IUserServices<UserDto, UserInsertDto, UserTokenDto>
   Task<UserTokenDto> Add(UserInsertDto userInsertDto);
   Task<UserTokenDto> Login(string userName, string password);
   UserTokenDto ValidateToken(string token);
+  Task<bool> IsUserExistsAsync(string userName);
   
 }

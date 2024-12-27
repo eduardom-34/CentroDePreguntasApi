@@ -10,4 +10,5 @@ public interface IUserRepository<User>
   Task<int> Add(User userId);
   void Delete(int id);
   Task<string> GetUsernameIfExists(string userName);
+  Task<bool> CheckUserExists(string userName);
 }

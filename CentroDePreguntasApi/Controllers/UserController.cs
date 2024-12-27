@@ -50,6 +50,8 @@ namespace CentroDePreguntasApi.Controllers
         {
             var userTokenDto = await _userService.Add(userInsertDto);
 
+            if(userTokenDto == null) return BadRequest(_userService.Errors);
+
             return CreatedAtAction(nameof(GetByUsername), new { username = userTokenDto.UserName }, userTokenDto);
         }
 
@@ -76,6 +78,12 @@ namespace CentroDePreguntasApi.Controllers
             }
 
             return Ok(userTokenDto);
+        }
+
+        [HttpGet("check/username/{username}")]
+        public async Task<ActionResult<bool>> CheckUsername(string username)
+        {
+            return await _userService.IsUserExistsAsync(username);
         }
     }
 }
